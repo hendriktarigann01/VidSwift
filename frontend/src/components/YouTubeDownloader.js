@@ -22,33 +22,59 @@ const YouTubeDownloader = () => {
       .then((data) => {
         console.log(data);
         setLoading(false);
-        if (data) {
-          const { videoUrl, audioUrl } = data;
+        if (data && data.result && data.resultUrl) {
+          const { title, duration, author } = data.result;
+          const videoOptions = data.resultUrl.video;
+          const audioOptions = data.resultUrl.audio;
 
           const formattedResult = `
             <div class="flex justify-center">
               <div class="w-full max-w-3xl">
+                <h2 class="text-xl font-bold mb-4">${title}</h2>
+                <p class="text-gray-600">Duration: ${duration}</p>
+                <p class="text-gray-600">Author: ${author}</p>
                 <div class="overflow-x-auto">
                   <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                       <tr>
                         <th class="px-6 py-3 text-center text-lg font-medium text-gray-900 uppercase tracking-wider">Type</th>
+                        <th class="px-6 py-3 text-center text-lg font-medium text-gray-900 uppercase tracking-wider">Format</th>
+                        <th class="px-6 py-3 text-center text-lg font-medium text-gray-900 uppercase tracking-wider">Quality</th>
+                        <th class="px-6 py-3 text-center text-lg font-medium text-gray-900 uppercase tracking-wider">Size</th>
                         <th class="px-6 py-3 text-center text-lg font-medium text-gray-900 uppercase tracking-wider">Download Link</th>
                       </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                      <tr>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">Video</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-500 hover:underline">
-                          <a href="${videoUrl}" target="_blank" rel="noopener noreferrer">Download Video</a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">Audio</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-500 hover:underline">
-                          <a href="${audioUrl}" target="_blank" rel="noopener noreferrer">Download Audio</a>
-                        </td>
-                      </tr>
+                      ${videoOptions
+                        .map(
+                          (video, index) => `
+                        <tr key=${index}>
+                          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">Video</td>
+                          <td class="px-6 py-4 whitespace-nowrap text-sm">${video.format}</td>
+                          <td class="px-6 py-4 whitespace-nowrap text-sm">${video.quality}</td>
+                          <td class="px-6 py-4 whitespace-nowrap text-sm">${video.size}</td>
+                          <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-500 hover:underline">
+                            <a href="${video.download}" target="_blank" rel="noopener noreferrer">Download Video</a>
+                          </td>
+                        </tr>
+                      `
+                        )
+                        .join("")}
+                      ${audioOptions
+                        .map(
+                          (audio, index) => `
+                        <tr key=${index}>
+                          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">Audio</td>
+                          <td class="px-6 py-4 whitespace-nowrap text-sm">${audio.format}</td>
+                          <td class="px-6 py-4 whitespace-nowrap text-sm">${audio.quality}</td>
+                          <td class="px-6 py-4 whitespace-nowrap text-sm">${audio.size}</td>
+                          <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-500 hover:underline">
+                            <a href="${audio.download}" target="_blank" rel="noopener noreferrer">Download Audio</a>
+                          </td>
+                        </tr>
+                      `
+                        )
+                        .join("")}
                     </tbody>
                   </table>
                 </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const SignUp = () => {
+const SignUp = ({ setLoading }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -27,28 +27,35 @@ const SignUp = () => {
     e.preventDefault();
     setError("");
     setSuccess("");
+    setLoading(true);
+    setTimeout(async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:5000/api/auth/register",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          }
+        );
 
-  try {
-    const response = await fetch("http://localhost:5000/api/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-
-    const data = await response.json();
-    if (response.ok) {
-      setSuccess(data.message);
-      setTimeout(() => {
-        navigate("/SignIn");
-      }, 2000); // Redirect to SignIn after 2 seconds
-    } else {
-      setError(data.error);
-    }
-  } catch (err) {
-    setError("Error registering user. Please try again.");
-  }
+        const data = await response.json();
+        if (response.ok) {
+          setSuccess(data.message);
+          setTimeout(() => {
+            navigate("/SignIn");
+          }, 2000); // Redirect to SignIn after 2 seconds
+        } else {
+          setError(data.error);
+        }
+      } catch (err) {
+        setError("Error registering user. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    }, 5000);
   };
 
   return (
@@ -135,19 +142,6 @@ const SignUp = () => {
                     required
                   />
                 </div>
-
-                {/* <label className="flex items-center justify-start mb-6">
-                  <input
-                    type="checkbox"
-                    name="checkbox"
-                    className="float-left mr-2"
-                    required
-                  />
-                  <span className="inline-block cursor-pointer text-sm">
-                    I agree to receive updates from Flowspark
-                  </span>
-                </label> */}
-
                 <input
                   type="submit"
                   value="Sign Up"

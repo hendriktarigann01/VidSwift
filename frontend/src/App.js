@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import "./App.css";
 import { Helmet } from "react-helmet";
@@ -17,13 +17,23 @@ import Saran from "./pages/Saran";
 import Loader from "./components/Loader";
 
 function App() {
+  // Mendefinisikan state isLoggedIn
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
   const location = useLocation();
   const isAuthPage =
     location.pathname === "/SignIn" || location.pathname === "/SignUp";
 
+  // Mengecek status autentikasi ketika komponen pertama kali dimuat
+  useEffect(() => {
+    const authStatus = localStorage.getItem("isLoggedIn");
+    if (authStatus === "true") {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
   return (
-    <div className={`App min-h-screen flex flex-col dark:bg-gray-600`}>
+    <div className="App min-h-screen flex flex-col dark:bg-gray-600">
       <Helmet>
         <title>VidSwift</title>
       </Helmet>
@@ -32,12 +42,27 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/dashboard" />} />
           <Route path="/dashboard" element={<VideoDownloader />} />
-          <Route path="/SignIn" element={<SignIn />} />
-          <Route path="/SignUp" element={<SignUp />} />
+          <Route
+            path="/SignIn"
+            element={
+              <SignIn
+                setLoading={setLoading}
+                loading={loading}
+                setIsLoggedIn={setIsLoggedIn}
+              />
+            }
+          />
+          <Route
+            path="/SignUp"
+            element={<SignUp setLoading={setLoading} loading={loading} />}
+          />
           <Route path="/tutorial" element={<Tutorial />} />
           <Route path="/generate-image" element={<GenerateImage />} />
           <Route path="/remove-bg" element={<RemoveBackground />} />
-          <Route path="/social-media" element={<SocialMedia />} />
+          <Route
+            path="/social-media"
+            element={isLoggedIn ? <SocialMedia /> : <Navigate to="/SignIn" />}
+          />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route

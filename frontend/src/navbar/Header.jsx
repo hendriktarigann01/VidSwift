@@ -20,7 +20,7 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       // Send request to the backend to log out
-      const response = await fetch("/api/logout", {
+      const response = await fetch("http://localhost:5000/api/auth/logout", {
         method: "POST",
         credentials: "include", // To include the session cookie in the request
       });
@@ -131,7 +131,13 @@ const Header = () => {
               </li>
               <li>
                 <Link
-                  to="/generate-image"
+                  to={isLoggedIn ? "/generate-image" : "#"}
+                  onClick={(e) => {
+                    if (!isLoggedIn) {
+                      e.preventDefault();
+                      alert("You must be logged in to access Generate Image.");
+                    }
+                  }}
                   className="block py-2 pr-4 pl-3 text-white hover:text-blue-950 rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-gray-400 dark:hover:text-slate-200"
                   aria-current="page"
                 >
@@ -155,7 +161,13 @@ const Header = () => {
               </li>
               <li>
                 <Link
-                  to="/remove-bg"
+                  to={isLoggedIn ? "/remove-bg" : "#"}
+                  onClick={(e) => {
+                    if (!isLoggedIn) {
+                      e.preventDefault();
+                      alert("You must be logged in to access Remove Background.");
+                    }
+                  }}
                   className="block py-2 pr-4 pl-3 text-white hover:text-blue-950 rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-gray-400 dark:hover:text-slate-200"
                   aria-current="page"
                 >

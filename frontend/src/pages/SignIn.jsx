@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const SignIn = () => {
+const SignIn = ({ setLoading, setIsLoggedIn }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
@@ -25,28 +25,36 @@ const SignIn = () => {
     e.preventDefault();
     setError("");
     setSuccess("");
+    setLoading(true);
+    setTimeout(async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(formData),
+        });
 
-    try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+        const data = await response.json();
+        if (response.ok) {
+          setSuccess(data.message);
+          localStorage.setItem("isLoggedIn", "true");
+          setIsLoggedIn(true);
 
-      const data = await response.json();
-      if (response.ok) {
-        setSuccess(data.message);
-        setTimeout(() => {
-          navigate("/dashboard"); // Redirect to dashboard after successful login
-        }, 2000);
-      } else {
-        setError(data.error);
+          setTimeout(() => {
+            navigate("/dashboard"); 
+          }, 2000);
+        } else {
+          setError(data.error);
+        }
+      } catch (err) {
+        setError("Error logging in. Please try again.");
+      } finally {
+        setLoading(false);
       }
-    } catch (err) {
-      setError("Error logging in. Please try again.");
-    }
+    }, 5000);
   };
 
   return (
