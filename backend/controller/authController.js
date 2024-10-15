@@ -39,12 +39,12 @@ exports.login = async (req, res) => {
 
     const user = await User.findOne({ username: username });
     if (!user) {
-      return res.status(400).json({ error: "User not found" });
+      return res.status(400).json({ error: "Username Salah" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ error: "Invalid credentials" });
+      return res.status(400).json({ error: "Password Salah" });
     }
 
     // Generate JWT token
@@ -60,9 +60,9 @@ exports.login = async (req, res) => {
       maxAge: 3600000, 
     });
 
-    res.json({ message: "Login successful" });
+    res.json({ message: "Login Berhasil" });
   } catch (error) {
-    res.status(500).json({ error: "Error logging in" });
+    res.status(500).json({ error: "Ada Gangguan Pada Server" });
   }
 };
 
@@ -73,6 +73,6 @@ exports.logout = (req, res) => {
       return res.status(500).json({ error: "Error logging out" });
     }
     res.clearCookie("token"); // Clear the JWT token cookie
-    res.json({ message: "Logout successful" });
+    res.json({ message: "Logout Berhasil" });
   });
 };
