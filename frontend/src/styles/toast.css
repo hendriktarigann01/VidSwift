@@ -1,0 +1,15 @@
+/* CSS untuk animasi toast */
+@keyframes slideDown {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.toast {
+  animation: slideDown 0.5s forwards;
+}

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import Toast from "../components/Toast"; 
+import Toast from "../components/Toast";
 
 const RemoveBackground = () => {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [isGoogleDriveLink, setIsGoogleDriveLink] = useState(false);
-  const [toastMessage, setToastMessage] = useState(null); // State untuk pesan toast
-  const [toastType, setToastType] = useState(""); // State untuk tipe toast (success, error, warning)
+  const [toastMessage, setToastMessage] = useState(null); 
+  const [toastType, setToastType] = useState(""); 
 
   const convertGoogleDriveLink = (link) => {
     const fileIdMatch = link.match(/\/d\/(.+?)\//);
@@ -19,7 +19,7 @@ const RemoveBackground = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setLoading(true);
-
+    setToastMessage(null); // Reset toast sebelum melakukan fetch
     let imageUrlInput = document.getElementById("imageUrlInput").value;
 
     // Jika input adalah link Google Drive, konversi ke URL langsung
@@ -32,30 +32,32 @@ const RemoveBackground = () => {
     )}`;
 
     fetch(apiUrl)
-      .then((response) => response.blob()) // Fetch the image as a blob
+      .then((response) => {
+        if (!response.ok) {
+          // Jika status tidak OK, lemparkan error
+          throw new Error(`Error ${response.status}: ${response.statusText}`);
+        }
+        return response.blob(); // Ambil gambar sebagai blob jika status OK
+      })
       .then((blob) => {
         setLoading(false);
-        const imageUrl = URL.createObjectURL(blob); // Create URL for blob
-        setImageUrl(imageUrl); // Set the image URL in state
+        const imageUrl = URL.createObjectURL(blob); 
+        setImageUrl(imageUrl); 
         const formattedResult = `
-          <div class="flex justify-center">
-            <img src="${imageUrl}" alt="No Background" class="w-32 h-full object-cover" />
-          </div>
-        `;
+        <div class="flex justify-center">
+          <img src="${imageUrl}" alt="No Background" class="w-32 h-full object-cover" />
+        </div>
+      `;
         setResult(formattedResult);
 
         // Tampilkan toast sukses
-        setToastMessage("Background removed successfully!");
+        setToastMessage("Background dihapus dengan sukses!");
         setToastType("success");
       })
       .catch(() => {
         setLoading(false);
-        setResult(
-          '<p class="text-red-500">Failed to remove background. Please try again later.</p>'
-        );
-
         // Tampilkan toast error
-        setToastMessage("Failed to remove background.");
+        setToastMessage("Gagal menghapus background.");
         setToastType("error");
       });
   };
@@ -64,9 +66,12 @@ const RemoveBackground = () => {
     <div>
       {toastMessage && (
         <Toast
-          type={toastType}
           message={toastMessage}
-          onClose={() => setToastMessage(null)} // Sembunyikan toast saat ditutup
+          type={toastType}
+          onClose={() => {
+            setToastMessage(null); 
+            setToastType("");
+          }}
         />
       )}
 
@@ -76,14 +81,14 @@ const RemoveBackground = () => {
             htmlFor="imageUrlInput"
             className="block text-gray-700 text-sm font-bold mb-2"
           >
-            Enter Image URL to Remove Background
+            Masukkan URL Gambar untuk Menghapus Background
           </label>
           <div className="flex">
             <input
               type="text"
               id="imageUrlInput"
               name="imageUrlInput"
-              placeholder="Enter image URL"
+              placeholder="Masukkan URL gambar"
               className="appearance-none rounded-l border-2 w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               required
             />
@@ -91,7 +96,7 @@ const RemoveBackground = () => {
               type="submit"
               className="bg-blue-500 hover:bg-blue-700 border-2 border-gray-200 text-white font-bold py-2 px-4 rounded-r focus:outline-none focus:shadow-outline"
             >
-              Remove
+              Hapus
             </button>
           </div>
 
@@ -104,7 +109,7 @@ const RemoveBackground = () => {
                 onChange={() => setIsGoogleDriveLink(!isGoogleDriveLink)}
               />
               <span className="ml-2 text-gray-700">
-                Check if the link is from Google Drive
+                Centang jika link dari Google Drive
               </span>
             </label>
           </div>
@@ -138,7 +143,7 @@ const RemoveBackground = () => {
             ></path>
           </svg>
           <span className="text-blue-500 text-lg font-medium animate-pulse">
-            Removing Background...
+            Menghapus Background...
           </span>
         </div>
       )}
@@ -152,7 +157,7 @@ const RemoveBackground = () => {
             download="no_bg_image.png"
             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
-            Download Image
+            Unduh Gambar
           </a>
         </div>
       )}

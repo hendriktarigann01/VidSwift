@@ -1,3 +1,4 @@
+// src/components/Header.js
 import React, { useState, useEffect } from "react";
 import Switcher6 from "../components/Toogler";
 import { Link, useNavigate } from "react-router-dom";
@@ -5,10 +6,12 @@ import logo from "../assets/VidSwiftBlack.svg";
 import "../styles/styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquarePlus } from "@fortawesome/free-regular-svg-icons";
+import Modal from "../components/Modal"
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State for login status
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -78,7 +81,7 @@ const Header = () => {
 
             {isLoggedIn ? (
               <button
-                onClick={handleLogout}
+                onClick={() => setIsModalOpen(true)} // Open modal on click
                 className="font-medium block ml-5 text-white hover:scale-105 hover:shadow-md bg-gradient-to-r from-primary-700 to-primary-800 lg:bg-transparent lg:text-primary-700 dark:text-gray-400 dark:hover:text-slate-200 border border-gray-200 rounded px-2 py-1"
               >
                 Logout
@@ -165,7 +168,9 @@ const Header = () => {
                   onClick={(e) => {
                     if (!isLoggedIn) {
                       e.preventDefault();
-                      alert("You must be logged in to access Remove Background.");
+                      alert(
+                        "You must be logged in to access Remove Background."
+                      );
                     }
                   }}
                   className="block py-2 pr-4 pl-3 text-white hover:text-blue-950 rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-gray-400 dark:hover:text-slate-200"
@@ -178,6 +183,13 @@ const Header = () => {
           </div>
         </div>
       </nav>
+
+      {/* Modal for Logout Confirmation */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)} // Close the modal
+        onConfirm={handleLogout} // Confirm logout
+      />
     </header>
   );
 };

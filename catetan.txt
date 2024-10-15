@@ -1,6 +1,11 @@
-buat cookies jwt
-fitur logout -menghapus jwt
-toast:
-login berhasil
+buat cookies jwt ^DONEEEEEE
+fitur logout -menghapus jwt ^DONEEEEEE
+toast: 
+login berhasil ^DONEEEEEE
 logout
 akun berhasil ditambahkan
+
+loader:
+logout
+signup
+
