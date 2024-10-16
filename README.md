@@ -1,70 +1,92 @@
-# Getting Started with Create React App
+VidSwift
+VidSwift is a powerful video downloading application designed with a sleek and intuitive user interface. This project is built using a full-stack architecture, leveraging Node.js and Express for the backend, while the frontend is crafted with React and styled using TailwindCSS.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+🌟 Key Features
+User-Friendly Interface: Built with React to provide a seamless and responsive user experience.
+Backend API: Powered by Node.js and Express for handling authentication, sessions, and data storage.
+Dark Mode: Easily switch between light and dark modes for a personalized experience.
+Concurrent Development: Utilize concurrently to run both the frontend and backend servers simultaneously during development.
+🛠️ Tech Stack
+Frontend:
+React
+TailwindCSS
+React Router
+Styled Components
+Font Awesome Icons
+Backend:
+Node.js
+Express
+MongoDB (via Mongoose)
+JWT (JSON Web Tokens) for authentication
+bcrypt for password hashing
+Express-session for session management
+Nodemailer for email handling
+⚙️ Prerequisites
+Ensure you have the following software installed before running this project:
 
-## Available Scripts
+Node.js (v16.x.x or later)
+npm (v7.x.x or later)
+🚀 Getting Started
+Follow these steps to set up and run the project on your local machine:
 
-In the project directory, you can run:
+1. Clone the Repository:
+bash
+Salin kode
+git clone https://github.com/username/VidSwift.git
+cd VidSwift
+2. Install Dependencies:
+For the root, backend, and frontend:
 
-### `npm start`
+bash
+Salin kode
+npm install
+cd backend && npm install
+Open a new terminal for the frontend installation:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+bash
+Salin kode
+cd frontend && npm install
+3. Running the Application:
+In the project root directory, start both the frontend and backend concurrently:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+bash
+Salin kode
+npm start
+The frontend will run at http://localhost:3000
+The backend will run at http://localhost:5000
+4. Running Separately:
+You can also run the frontend or backend individually:
 
-### `npm test`
+To run the backend only:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+bash
+Salin kode
+npm run backend
+To run the frontend only:
 
-### `npm run build`
+bash
+Salin kode
+npm run frontend
+🔧 Tools Used
+Concurrently: To manage multiple servers simultaneously.
+dotenv: For environment variable management.
+Nodemailer: To send emails from the backend.
+🤝 Contribution Guidelines
+Contributions are welcome! Follow these steps to contribute:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Fork the repository.
+Create your feature branch:
+bash
+Salin kode
+git checkout -b <feature-branch>
+Commit your changes:
+bash
+Salin kode
+git commit -m "Add your message"
+Push the branch:
+bash
+Salin kode
+git push origin <feature-branch>
+Open a Pull Request.
+📜 License
+This project is licensed under the ISC License.
