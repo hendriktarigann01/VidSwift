@@ -37,11 +37,15 @@ function App() {
       <Helmet>
         <title>VidSwift</title>
       </Helmet>
-      {!isAuthPage && <Header />}
+      {!isAuthPage && <Header setLoading={setLoading} />}
       <div className={`flex-grow ${loading ? "blur-sm" : ""}`}>
         <Routes>
           <Route path="/" element={<Navigate to="/dashboard" />} />
           <Route path="/dashboard" element={<VideoDownloader />} />
+          <Route
+            path="/header"
+            element={<Header setLoading={setLoading} loading={loading} />}
+          />
           <Route
             path="/SignIn"
             element={

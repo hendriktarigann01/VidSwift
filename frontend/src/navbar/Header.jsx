@@ -6,12 +6,12 @@ import logo from "../assets/VidSwiftBlack.svg";
 import "../styles/styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquarePlus } from "@fortawesome/free-regular-svg-icons";
-import Modal from "../components/Modal"
+import Modal from "../components/Modal";
 
-const Header = () => {
+const Header = ({ setLoading }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // State for login status
-  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const [isModalOpen, setIsModalOpen] = useState(false); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,24 +21,29 @@ const Header = () => {
   }, []);
 
   const handleLogout = async () => {
-    try {
-      // Send request to the backend to log out
-      const response = await fetch("http://localhost:5000/api/auth/logout", {
-        method: "POST",
-        credentials: "include", // To include the session cookie in the request
-      });
+    setLoading(true);
+    setTimeout(async () => {
+      try {
+        // Send request to the backend to log out
+        const response = await fetch("http://localhost:5000/api/auth/logout", {
+          method: "POST",
+          credentials: "include", // To include the session cookie in the request
+        });
 
-      if (response.ok) {
-        // Clear the login status on the frontend
-        localStorage.removeItem("isLoggedIn");
-        setIsLoggedIn(false);
-        navigate("/"); // Navigate to homepage or another route after logout
-      } else {
-        console.error("Logout failed");
+        if (response.ok) {
+          // Clear the login status on the frontend
+          localStorage.removeItem("isLoggedIn");
+          setIsLoggedIn(false);
+          navigate("/"); // Navigate to homepage or another route after logout
+        } else {
+          console.error("Logout failed");
+        }
+      } catch (error) {
+        console.error("An error occurred during logout:", error);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error("An error occurred during logout:", error);
-    }
+    }, 5000);
   };
 
   const toggleMenu = () => {

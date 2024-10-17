@@ -17,7 +17,7 @@ const SignIn = ({ setLoading, setIsLoggedIn }) => {
     navigate("/SignUp");
   };
 
-  // Handle input change
+ 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -49,7 +49,7 @@ const SignIn = ({ setLoading, setIsLoggedIn }) => {
 
           setTimeout(() => {
             navigate("/dashboard");
-          }, 2000);
+          }, 3000);
         } else {
           setToastMessage(data.error);
           setToastType("error");
