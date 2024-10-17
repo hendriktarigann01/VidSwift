@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Toast from "../components/Toast";
-import signUpImage from "../assets/signUpImage.png"; // Use the same background image as SignIn
+import signUpImage from "../assets/signUpImage.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const SignUp = ({ setLoading }) => {
   const navigate = useNavigate();
@@ -12,7 +14,7 @@ const SignUp = ({ setLoading }) => {
     fullName: "",
   });
   const [toastMessage, setToastMessage] = useState(null);
-  const [toastType, setToastType] = useState("");;
+  const [toastType, setToastType] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSignInClick = () => {
@@ -107,7 +109,7 @@ const SignUp = ({ setLoading }) => {
                 />
               </div>
             </div>
-            <div className="mb-12 flex flex-col pt-4">
+            <div className="flex flex-col pt-4">
               <div className="focus-within:border-b-gray-500 relative flex overflow-hidden border-b-2 transition">
                 <input
                   type={showPassword ? "text" : "password"}
@@ -125,11 +127,11 @@ const SignUp = ({ setLoading }) => {
                 >
                   {showPassword ? (
                     <span role="img" aria-label="Hide password">
-                      🙈
-                    </span> // Ikon mata tertutup
+                      <FontAwesomeIcon icon={faEyeSlash} />
+                    </span>
                   ) : (
                     <span role="img" aria-label="Show password">
-                      👁️
+                      <FontAwesomeIcon icon={faEye} />
                     </span> // Ikon mata terbuka
                   )}
                 </button>
