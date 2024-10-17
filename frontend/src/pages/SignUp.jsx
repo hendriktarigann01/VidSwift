@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Toast from "../components/Toast";
+import signUpImage from "../assets/signUpImage.png"; // Use the same background image as SignIn
 
 const SignUp = ({ setLoading }) => {
   const navigate = useNavigate();
@@ -10,10 +11,9 @@ const SignUp = ({ setLoading }) => {
     username: "",
     fullName: "",
   });
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [toastMessage, setToastMessage] = useState(null);
-  const [toastType, setToastType] = useState("");
+  const [toastType, setToastType] = useState("");;
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSignInClick = () => {
     navigate("/SignIn");
@@ -25,11 +25,17 @@ const SignUp = ({ setLoading }) => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleInputPassword = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   // Handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-    setSuccess("");
     setLoading(true);
     setTimeout(async () => {
       try {
@@ -50,13 +56,11 @@ const SignUp = ({ setLoading }) => {
           setToastType("success");
           setTimeout(() => {
             navigate("/SignIn");
-          }, 3000); 
+          }, 3000);
         } else {
           setToastMessage(data.error);
           setToastType("error");
         }
-      } catch (err) {
-        setError("Error registering user. Please try again.");
       } finally {
         setLoading(false);
       }
@@ -64,124 +68,129 @@ const SignUp = ({ setLoading }) => {
   };
 
   return (
-    <div>
+    <div className="flex flex-wrap">
       {toastMessage && (
         <Toast
           message={toastMessage}
           type={toastType}
           onClose={() => {
-            setToastMessage(null); // Menutup toast
-            setToastType(""); // Menghapus tipe setelah toast ditutup
+            setToastMessage(null);
+            setToastType("");
           }}
         />
       )}
-      <section>
-        {/* Container */}
-        <div className="mx-auto w-full max-w-3xl px-5 py-16 md:px-10 md:py-20">
-          {/* Component */}
-          <div className="relative mx-auto max-w-xl bg-gray-100 px-8 py-12 text-center">
-            {/* Close Button */}
-            <svg
-              className="absolute top-3 right-3 sm:top-7 sm:right-7 cursor-pointer"
-              onClick={() => navigate("/dashboard")}
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M5.25 5.25L18.75 18.75"
-                stroke="black"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M5.25 18.75L18.75 5.25"
-                stroke="black"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
 
-            {/* Form */}
-            <div className="mx-auto w-full max-w-md">
-              <div className="mx-auto mb-4 max-w-md pb-4">
-                <form onSubmit={handleSubmit}>
-                  <div className="relative flex flex-col">
-                    <div className="font-bold mb-1 text-left">Email</div>
-                    <input
-                      type="email"
-                      name="email"
-                      className="mb-6 block h-9 w-full rounded-md border border-solid border-black px-3 py-6 text-sm text-black placeholder:text-black"
-                      placeholder="Email Address"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                  <div className="relative mb-6">
-                    <div className="font-bold mb-1 text-left">Password</div>
-                    <input
-                      type="password"
-                      name="password"
-                      className="block h-9 w-full rounded-md border border-solid border-black px-3 py-6 text-sm text-black placeholder:text-black"
-                      placeholder="Password (min 8 characters)"
-                      value={formData.password}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                  <div className="relative mb-6">
-                    <div className="font-bold mb-1 text-left">Username</div>
-                    <input
-                      type="text"
-                      name="username"
-                      className="block h-9 w-full rounded-md border border-solid border-black px-3 py-6 text-sm text-black placeholder:text-black"
-                      placeholder="Username"
-                      value={formData.username}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                  <div className="relative mb-6">
-                    <div className="font-bold mb-1 text-left">Nama Lengkap</div>
-                    <input
-                      type="text"
-                      name="fullName"
-                      className="block h-9 w-full rounded-md border border-solid border-black px-3 py-6 text-sm text-black placeholder:text-black"
-                      placeholder="Nama Lengkap"
-                      value={formData.fullName}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                  <input
-                    type="submit"
-                    value="Sign Up"
-                    className="inline-block w-full cursor-pointer items-center rounded-md bg-black px-6 py-3 text-center font-semibold text-white"
-                  />
-                </form>
+      {/* Left Section */}
+      <div className="flex w-full flex-col md:w-1/2">
+        <div className="flex justify-center pt-12 md:justify-start md:pl-12">
+          <a
+            href="#"
+            className="border-b-gray-700 border-b-4 pb-2 text-2xl font-bold text-gray-900"
+          >
+            VidSwift .
+          </a>
+        </div>
+        <div className="lg:w-[28rem] mx-auto my-auto flex flex-col justify-center pt-8 md:justify-start md:px-6 md:pt-0">
+          <p className="text-left text-3xl font-medium">Sign Up</p>
 
-                {error && <p className="mt-4 text-red-600">{error}</p>}
-                {success && <p className="mt-4 text-green-600">{success}</p>}
-
-                <p className="mt-6">
-                  Already have an account?{" "}
-                  <span
-                    onClick={handleSignInClick}
-                    className="font-bold underline cursor-pointer"
-                  >
-                    Sign In
-                  </span>
-                </p>
+          <form className="flex flex-col pt-3 md:pt-8" onSubmit={handleSubmit}>
+            <div className="flex flex-col pt-4">
+              <div className="focus-within:border-b-gray-500 relative flex overflow-hidden border-b-2 transition">
+                <input
+                  type="email"
+                  name="email"
+                  className="w-full flex-1 appearance-none border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
+                  placeholder="Email Address"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                />
               </div>
             </div>
+            <div className="mb-12 flex flex-col pt-4">
+              <div className="focus-within:border-b-gray-500 relative flex overflow-hidden border-b-2 transition">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  className="w-full flex-1 appearance-none border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={handleInputPassword}
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute right-4 top-2"
+                >
+                  {showPassword ? (
+                    <span role="img" aria-label="Hide password">
+                      🙈
+                    </span> // Ikon mata tertutup
+                  ) : (
+                    <span role="img" aria-label="Show password">
+                      👁️
+                    </span> // Ikon mata terbuka
+                  )}
+                </button>
+              </div>
+            </div>
+            <div className="flex flex-col pt-4">
+              <div className="focus-within:border-b-gray-500 relative flex overflow-hidden border-b-2 transition">
+                <input
+                  type="text"
+                  name="username"
+                  className="w-full flex-1 appearance-none border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
+                  placeholder="Username"
+                  value={formData.username}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+            </div>
+            <div className="mb-12 flex flex-col pt-4">
+              <div className="focus-within:border-b-gray-500 relative flex overflow-hidden border-b-2 transition">
+                <input
+                  type="text"
+                  name="fullName"
+                  className="w-full flex-1 appearance-none border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
+                  placeholder="Full Name"
+                  value={formData.fullName}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+            </div>
+            <button
+              type="submit"
+              className="w-full rounded-lg bg-gray-900 px-4 py-2 text-center text-base font-semibold text-white shadow-md ring-gray-500 ring-offset-2 transition focus:ring-2"
+            >
+              Sign Up
+            </button>
+          </form>
+
+          <div className="py-12 text-center">
+            <p className="whitespace-nowrap text-gray-600">
+              Already have an account?{" "}
+              <span
+                onClick={handleSignInClick}
+                className="underline-offset-4 font-semibold text-gray-900 underline cursor-pointer"
+              >
+                Sign In
+              </span>
+            </p>
           </div>
         </div>
-      </section>
+      </div>
+
+      {/* Right Section - Background Image */}
+      <div className="pointer-events-none relative hidden h-screen select-none bg-gray-500 md:block md:w-1/2">
+        <img
+          className="-z-1 absolute top-0 h-full w-full object-cover opacity-90"
+          src={signUpImage}
+          alt="Background"
+        />
+      </div>
     </div>
   );
 };

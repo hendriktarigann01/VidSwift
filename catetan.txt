@@ -1,11 +1,61 @@
-buat cookies jwt ^DONEEEEEE
-fitur logout -menghapus jwt ^DONEEEEEE
-toast: 
-login berhasil ^DONEEEEEE
-logout
-akun berhasil ditambahkan
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Toast from "../components/Toast";
 
-loader:
-logout
-signup
+const SignIn = ({ setLoading, setIsLoggedIn }) => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+  });
+  const [toastMessage, setToastMessage] = useState(null);
+  const [toastType, setToastType] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
+  const handleSignUpClick = () => {
+    navigate("/SignUp");
+  };
+
+ 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  // Handle form submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setSuccess("");
+    setLoading(true);
+    setTimeout(async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(formData),
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          setToastMessage(data.message);
+          setToastType("success");
+          localStorage.setItem("isLoggedIn", "true");
+          setIsLoggedIn(true);
+
+          setTimeout(() => {
+            navigate("/dashboard");
+          }, 3000);
+        } else {
+          setToastMessage(data.error);
+          setToastType("error");
+        }
+      } finally {
+        setLoading(false);
+      }
+    }, 5000);
+  };
