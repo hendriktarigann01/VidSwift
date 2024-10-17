@@ -70,7 +70,7 @@ exports.login = async (req, res) => {
 exports.logout = (req, res) => {
   req.session.destroy((err) => {
     if (err) {
-      return res.status(500).json({ error: "Error logging out" });
+      return res.status(500).json({ error: "Gagal Logout" });
     }
     res.clearCookie("token"); // Clear the JWT token cookie
     res.json({ message: "Logout Berhasil" });
