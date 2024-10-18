@@ -21,7 +21,6 @@ const SignUp = ({ setLoading }) => {
     navigate("/SignIn");
   };
 
-  // Handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -127,11 +126,17 @@ const SignUp = ({ setLoading }) => {
                 >
                   {showPassword ? (
                     <span role="img" aria-label="Hide password">
-                      <FontAwesomeIcon icon={faEyeSlash} />
+                      <FontAwesomeIcon
+                        icon={faEyeSlash}
+                        className="text-xs text-gray-300"
+                      />
                     </span>
                   ) : (
                     <span role="img" aria-label="Show password">
-                      <FontAwesomeIcon icon={faEye} />
+                      <FontAwesomeIcon
+                        icon={faEye}
+                        className="text-xs text-gray-300"
+                      />
                     </span> // Ikon mata terbuka
                   )}
                 </button>

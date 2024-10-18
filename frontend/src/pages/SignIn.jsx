@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Toast from "../components/Toast";
 import loginImage from "../assets/loginImage.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const SignIn = ({ setLoading, setIsLoggedIn }) => {
   const navigate = useNavigate();
@@ -11,6 +13,7 @@ const SignIn = ({ setLoading, setIsLoggedIn }) => {
   });
   const [toastMessage, setToastMessage] = useState(null);
   const [toastType, setToastType] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSignUpClick = () => {
     navigate("/SignUp");
@@ -21,7 +24,14 @@ const SignIn = ({ setLoading, setIsLoggedIn }) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  // Handle form submit
+  const handleInputPassword = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -80,7 +90,7 @@ const SignIn = ({ setLoading, setIsLoggedIn }) => {
           </a>
         </div>
         <div className="lg:w-[28rem] mx-auto my-auto flex flex-col justify-center pt-8 md:justify-start md:px-6 md:pt-0">
-          <p className="text-left text-3xl font-medium">Sign In</p> 
+          <p className="text-left text-3xl font-medium">Sign In</p>
 
           {/* Form */}
           <form className="flex flex-col pt-3 md:pt-8" onSubmit={handleSubmit}>
@@ -100,14 +110,35 @@ const SignIn = ({ setLoading, setIsLoggedIn }) => {
             <div className="mb-12 flex flex-col pt-4">
               <div className="focus-within:border-b-gray-500 relative flex overflow-hidden border-b-2 transition">
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   className="w-full flex-1 appearance-none border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
                   placeholder="Password"
                   value={formData.password}
-                  onChange={handleInputChange}
+                  onChange={handleInputPassword}
                   required
                 />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute right-4 top-2"
+                >
+                  {showPassword ? (
+                    <span role="img" aria-label="Hide password">
+                      <FontAwesomeIcon
+                        icon={faEyeSlash}
+                        className="text-xs text-gray-300"
+                      />
+                    </span>
+                  ) : (
+                    <span role="img" aria-label="Show password">
+                      <FontAwesomeIcon
+                        icon={faEye}
+                        className="text-xs text-gray-300"
+                      />
+                    </span> // Ikon mata terbuka
+                  )}
+                </button>
               </div>
             </div>
             <button
