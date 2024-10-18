@@ -13,9 +13,6 @@ const TikTokDownloader = () => {
     const apiUrl = `https://api.ryzendesu.vip/api/downloader/ttdl?url=${encodeURIComponent(
       url
     )}`;
-    const backupApiUrl = `https://apidl.asepharyana.my.id/api/downloader/ttdl?url=${encodeURIComponent(
-      url
-    )}`;
 
     fetch(apiUrl)
       .then((response) => response.json())
