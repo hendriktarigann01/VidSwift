@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet";
 import Header from "./navbar/Header";
 import GenerateImage from "./navbar/GenerateImage";
 import RemoveBackground from "./navbar/RemoveBg";
-import SocialMedia from "./navbar/SocialMedia";
+import SocialMedia from "./pages/SocialMedia";
 import Tutorial from "./pages/Tutorial";
 import VideoDownloader from "./components/VideoDownloader";
 import SignIn from "./pages/SignIn";
@@ -63,10 +63,7 @@ function App() {
           <Route path="/tutorial" element={<Tutorial />} />
           <Route path="/generate-image" element={<GenerateImage />} />
           <Route path="/remove-bg" element={<RemoveBackground />} />
-          <Route
-            path="/social-media"
-            element={isLoggedIn ? <SocialMedia /> : <Navigate to="/SignIn" />}
-          />
+          <Route path="/social-media" element={<SocialMedia />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route
