@@ -1,14 +1,15 @@
 # VidSwift
 
-VidSwift adalah aplikasi pengunduh video yang kuat dirancang dengan antarmuka pengguna yang ramping dan intuitif. Proyek ini dibangun menggunakan arsitektur full-stack, memanfaatkan Node.js dan Express untuk backend, sementara frontend dibuat dengan React dan diberi gaya menggunakan TailwindCSS.
+VidSwift is a powerful video downloading application designed with a sleek and intuitive user interface. This project is built using a full-stack architecture, leveraging Node.js and Express for the backend, while the frontend is crafted with React and styled using TailwindCSS.
 
-## 🌟 Fitur Utama
-- **Antarmuka Ramah Pengguna:** Dibangun dengan React untuk memberikan pengalaman pengguna yang mulus dan responsif.
-- **API Backend:** Didukung oleh Node.js dan Express untuk menangani otentikasi, sesi, dan penyimpanan data.
-- **Mode Gelap:** Mudah beralih antara mode terang dan gelap untuk pengalaman yang dipersonalisasi.
-- **Pengembangan Bersama:** Gunakan `concurrently` untuk menjalankan server frontend dan backend secara bersamaan selama pengembangan.
+## 🌟 Key Features
+- **User-Friendly Interface:** Built with React to provide a seamless and responsive user experience.
+- **Backend API:** Powered by Node.js and Express for handling authentication, sessions, and data storage.
+- **Dark Mode:** Easily switch between light and dark modes for a personalized experience.
+- **Concurrent Development:** Utilize concurrently to run both the frontend and backend servers simultaneously during development.
 
-## 🛠️ Tumpukan Teknologi
+## 🛠️ Tech Stack
+
 **Frontend:**
 - React
 - TailwindCSS
@@ -20,63 +21,47 @@ VidSwift adalah aplikasi pengunduh video yang kuat dirancang dengan antarmuka pe
 - Node.js
 - Express
 - MongoDB (via Mongoose)
-- JWT (JSON Web Tokens) untuk otentikasi
-- bcrypt untuk hashing kata sandi
-- Express-session untuk manajemen sesi
-- Nodemailer untuk penanganan email
+- JWT (JSON Web Tokens) for authentication
+- bcrypt for password hashing
+- Express-session for session management
+- Nodemailer for email handling
 
 ## ⚙️ Prerequisites
-Pastikan Anda memiliki perangkat lunak berikut terinstal sebelum menjalankan proyek ini:
-- Node.js (v16.x.x atau lebih baru)
-- npm (v7.x.x atau lebih baru)
 
-## 🚀 Memulai
-Ikuti langkah-langkah berikut untuk menyiapkan dan menjalankan proyek di mesin lokal Anda:
+Make sure you have the following software installed before running this project:
+- Node.js (v16.x.x or higher)
+- npm (v7.x.x or higher)
 
-1. **Clone Repositori:**
-   git clone https://github.com/username/VidSwift.git
-   cd VidSwift
+## 🚀 Getting Started
+
+1. Clone the repository: `git clone https://github.com/username/VidSwift.git` and navigate to the project directory `cd VidSwift`.
    
-Instal Dependensi: Untuk root, backend, dan frontend:
-npm install
-cd backend && npm install
+2. Install dependencies for the root, backend, and frontend directories:
+   - At the root: `npm install`
+   - In the backend directory: `cd backend && npm install`
+   - In the frontend directory: `cd frontend && npm install`
 
-Open a new terminal for the frontend installation:
-cd frontend && npm install
+3. To run the application, start both frontend and backend servers simultaneously from the root directory: `npm start`.
+   - The frontend will run on `http://localhost:3000`
+   - The backend will run on `http://localhost:5000`
 
-Menjalankan Aplikasi: Di direktori root proyek, mulai kedua server frontend dan backend secara bersamaan:
-npm start
-Frontend akan berjalan di http://localhost:3000
-Backend akan berjalan di http://localhost:5000
+Alternatively, you can run the frontend or backend individually:
+   - To run the backend only: `npm run backend`
+   - To run the frontend only: `npm run frontend`
 
-Menjalankan Secara Terpisah: Anda juga dapat menjalankan frontend atau backend secara individu:
+## 🔧 Tools Used
+- **Concurrently:** To manage multiple servers simultaneously.
+- **dotenv:** For environment variable management.
+- **Nodemailer:** To send emails from the backend.
 
-Untuk menjalankan backend saja:
-npm run backend
+## 🤝 Contribution Guidelines
 
-Untuk menjalankan frontend saja:
-npm run frontend
+Contributions are welcome! To contribute:
+1. Fork the repository.
+2. Create a feature branch.
+3. Commit your changes.
+4. Push to the branch.
+5. Open a Pull Request.
 
-🔧 Alat yang Digunakan
-Concurrently: Untuk mengelola beberapa server secara bersamaan.
-dotenv: Untuk manajemen variabel lingkungan.
-Nodemailer: Untuk mengirim email dari backend.
-🤝 Pedoman Kontribusi
-Kontribusi sangat diterima! Ikuti langkah-langkah ini untuk berkontribusi:
-
-Fork repositori.
-
-Buat branch fitur Anda:
-git checkout -b <feature-branch>
-
-Komit perubahan Anda:
-git commit -m "Add your message"
-
-Push branch:
-git push origin <feature-branch>
-
-Buka Pull Request.
-
-📜 Lisensi
-Proyek ini dilisensikan di bawah ISC License.
-
+## 📜 License
+This project is licensed under the ISC License.
