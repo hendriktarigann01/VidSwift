@@ -34,21 +34,17 @@ Pastikan Anda memiliki perangkat lunak berikut terinstal sebelum menjalankan pro
 Ikuti langkah-langkah berikut untuk menyiapkan dan menjalankan proyek di mesin lokal Anda:
 
 1. **Clone Repositori:**
-   ```bash
    git clone https://github.com/username/VidSwift.git
    cd VidSwift
    
 Instal Dependensi: Untuk root, backend, dan frontend:
-```bash
 npm install
 cd backend && npm install
 
 Open a new terminal for the frontend installation:
-```bash
 cd frontend && npm install
 
 Menjalankan Aplikasi: Di direktori root proyek, mulai kedua server frontend dan backend secara bersamaan:
-```bash
 npm start
 Frontend akan berjalan di http://localhost:3000
 Backend akan berjalan di http://localhost:5000
@@ -56,11 +52,9 @@ Backend akan berjalan di http://localhost:5000
 Menjalankan Secara Terpisah: Anda juga dapat menjalankan frontend atau backend secara individu:
 
 Untuk menjalankan backend saja:
-```bash
 npm run backend
 
 Untuk menjalankan frontend saja:
-```bash
 npm run frontend
 
 🔧 Alat yang Digunakan
@@ -73,15 +67,12 @@ Kontribusi sangat diterima! Ikuti langkah-langkah ini untuk berkontribusi:
 Fork repositori.
 
 Buat branch fitur Anda:
-```bash
 git checkout -b <feature-branch>
 
 Komit perubahan Anda:
-```bash
 git commit -m "Add your message"
 
 Push branch:
-```bash
 git push origin <feature-branch>
 
 Buka Pull Request.
