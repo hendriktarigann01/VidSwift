@@ -34,23 +34,34 @@ const TikTokFollowers = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex mt-4">
-      <input
-        type="text"
-        id="tiktokUrlFollowers"
-        name="tiktokUrlFollowers"
-        placeholder="Masukkan link video TikTok untuk tambah Followers"
-        className="appearance-none rounded-l border-2 w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        required
-      />
-      <button
-        type="submit"
-        className="bg-blue-500 hover:bg-blue-700 border-2 border-gray-200 text-white font-bold py-2 px-4 rounded-r focus:outline-none focus:shadow-outline"
-      >
-        Add Followers
-      </button>
-      {loading && <LoadingSpinner />}
-      <div className="mt-4" dangerouslySetInnerHTML={{ __html: result }}></div>
+    <form onSubmit={handleSubmit} className="block mt-4">
+      <p className="mb-2">
+        This feature allows you to add <b>10</b> TikTok Followers. The request is
+        limited to 1 request per IP per hour.
+      </p>
+      <div className="mx-auto relative w-3/4">
+        <div className="flex">
+          <input
+            type="text"
+            id="tiktokUrlFollowers"
+            name="tiktokUrlFollowers"
+            placeholder="Masukkan link Profile TikTok untuk tambah Followers"
+            className="appearance-none rounded-l border-2 w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            required
+          />
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 border-2 border-gray-200 text-white font-bold py-2 px-4 rounded-r focus:outline-none focus:shadow-outline"
+          >
+            Add Followers
+          </button>
+          {loading && <LoadingSpinner />}
+          <div
+            className="mt-4"
+            dangerouslySetInnerHTML={{ __html: result }}
+          ></div>
+        </div>
+      </div>
     </form>
   );
 };

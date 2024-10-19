@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const TikTokLike = () => {
+const InstagramLike = () => {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState("");
 
@@ -8,8 +8,8 @@ const TikTokLike = () => {
     event.preventDefault();
     setLoading(true);
 
-    const url = document.getElementById("tiktokUrlLike").value;
-    const apiUrl = `https://mr-apis.com/api/smm/tiktok-like?url=${encodeURIComponent(
+    const url = document.getElementById("InstagramUrlLike").value;
+    const apiUrl = `https://mr-apis.com/api/smm/instagram-like?url=${encodeURIComponent(
       url
     )}`;
 
@@ -19,7 +19,7 @@ const TikTokLike = () => {
         setLoading(false);
         if (data.message === "success") {
           setResult(
-            "<p class='text-green-500'>TikTok likes added successfully!</p>"
+            "<p class='text-green-500'>Instagram likes added successfully!</p>"
           );
         } else if (data.error) {
           setResult(`<p class='text-red-500'>Error: ${data.error}</p>`);
@@ -36,16 +36,16 @@ const TikTokLike = () => {
   return (
     <form onSubmit={handleSubmit} className="block mt-4">
       <p className="mb-2">
-        This feature allows you to add <b>50</b> TikTok Like. This request is
+        This feature allows you to add <b>50</b> Instagram Like. This request is
         limited to 1 request per IP per hour.
       </p>
       <div className="mx-auto relative w-3/4">
         <div className="flex">
           <input
             type="text"
-            id="tiktokUrlLike"
-            name="tiktokUrlLike"
-            placeholder="Masukkan link video TikTok untuk tambah Like"
+            id="InstagramUrlLike"
+            name="InstagramUrlLike"
+            placeholder="Masukkan link video Instagram untuk tambah Like"
             className="appearance-none rounded-l border-2 w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
           />
@@ -95,4 +95,4 @@ const LoadingSpinner = () => (
   </div>
 );
 
-export default TikTokLike;
+export default InstagramLike;
