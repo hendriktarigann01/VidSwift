@@ -5,5 +5,5 @@ view ^DONEEE
 followers
 
 Feature yang belum dibuat
-facebook
-instagram
+facebook ^DONEEE
+instagram ^DONEEE
