@@ -15,7 +15,7 @@ const FacebookFeatures = () => {
       <div className="flex flex-wrap justify-center space-x-2 sm:space-x-4 mb-4">
         <button
           className={`w-32 px-4 py-2 bg-white border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white rounded-lg ${
-            selectedFeature === "like" ? "bg-blue-400 text-white" : ""
+            selectedFeature === "like" ? "bg-blue-400 text-white font-medium" : ""
           }`}
           onClick={() => handleButtonClick("like")}
         >
@@ -23,7 +23,7 @@ const FacebookFeatures = () => {
         </button>
         <button
           className={`w-32 px-4 py-2 bg-white border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white rounded-lg ${
-            selectedFeature === "followers" ? "bg-blue-400 text-white" : ""
+            selectedFeature === "followers" ? "bg-blue-400 text-white font-medium" : ""
           }`}
           onClick={() => handleButtonClick("followers")}
         >
