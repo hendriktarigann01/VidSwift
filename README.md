@@ -45,7 +45,7 @@ Make sure you have the following software installed before running this project:
    - The frontend will run on `http://localhost:3000`
    - The backend will run on `http://localhost:5000`
 
-Alternatively, you can run the frontend or backend individually:
+4. Alternatively, you can run the frontend or backend individually:
    - To run the backend only: `npm run backend`
    - To run the frontend only: `npm run frontend`
 
