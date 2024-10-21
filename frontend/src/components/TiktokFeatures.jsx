@@ -17,19 +17,31 @@ const TikTokFeatures = () => {
       {/* Tombol untuk menambah Like, View, dan Followers */}
       <div className="flex flex-wrap justify-center space-x-2 sm:space-x-4 mb-4">
         <button
-          className="w-32 px-4 py-2 bg-white border-2 border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white rounded-lg"
+          className={`w-32 px-4 py-2 bg-white border-2 border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white rounded-lg ${
+            selectedFeature === "like"
+              ? "bg-purple-300 text-white font-medium"
+              : ""
+          }`}
           onClick={() => handleButtonClick("like")}
         >
           Add Like
         </button>
         <button
-          className="w-32 px-4 py-2 bg-white border-2 border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white rounded-lg"
+          className={`w-32 px-4 py-2 bg-white border-2 border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white rounded-lg ${
+            selectedFeature === "view"
+              ? "bg-purple-300 text-white font-medium"
+              : ""
+          }`}
           onClick={() => handleButtonClick("view")}
         >
           Add View
         </button>
         <button
-          className="w-32 px-4 py-2 bg-white border-2 border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white rounded-lg"
+          className={`w-32 px-4 py-2 bg-white border-2 border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white rounded-lg ${
+            selectedFeature === "followers"
+              ? "bg-purple-300 text-white font-medium"
+              : ""
+          }`}
           onClick={() => handleButtonClick("followers")}
         >
           Add Followers
