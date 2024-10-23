@@ -76,3 +76,16 @@ exports.logout = (req, res) => {
     res.json({ message: "Logout Berhasil" });
   });
 };
+
+// Get Profile
+exports.getProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId).select("-password"); // Jangan tampilkan password
+    if (!user) {
+      return res.status(404).json({ error: "Pengguna tidak ditemukan" });
+    }
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: "Terjadi kesalahan pada server" });
+  }
+};
