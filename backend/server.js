@@ -4,6 +4,7 @@ const cors = require("cors");
 const dotenv = require("dotenv").config();
 const authRoutes = require("./Routes/userRoute");
 const saranRoutes = require("./Routes/saranRoute");
+const uploadRoutes = require("./Routes/uploadRoute");
 const app = express();
 const session = require("express-session");
 const bodyParser = require("body-parser");
@@ -38,6 +39,7 @@ app.use(
 
 app.use("/api/auth", authRoutes);
 app.use("/api", saranRoutes);
+app.use("/api", uploadRoutes)
 
 // Jalankan server
 app.listen(PORT, () => {
