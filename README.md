@@ -1,6 +1,6 @@
 # VidSwift
 
-VidSwift is a powerful video downloading application designed with a sleek and intuitive user interface. This project is built using a full-stack architecture, leveraging Node.js and Express for the backend, while the frontend is crafted with React and styled using TailwindCSS.
+VidSwift is a powerful video downloading application designed with a sleek and intuitive user interface. This project is built using a full-stack architecture, leveraging Node.js and Express for the backend, while the frontend is crafted with React & styled using TailwindCSS.
 
 ## 🌟 Key Features
 - **User-Friendly Interface:** Built with React to provide a seamless and responsive user experience.
