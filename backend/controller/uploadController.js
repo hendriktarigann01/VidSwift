@@ -10,9 +10,8 @@ exports.uploadImage = async (req, res) => {
         .json({ success: false, message: "No file uploaded" });
     }
 
-    // Mengupload menggunakan buffer dari memory storage multer
     const uploadStream = cloudinary.uploader.upload_stream(
-      { folder: "uploads" }, // Sesuaikan folder jika perlu
+      { folder: "tesimage" }, 
       function (error, result) {
         if (error) {
           console.log(error);
