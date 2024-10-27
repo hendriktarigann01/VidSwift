@@ -1,32 +1,41 @@
 const nodemailer = require("nodemailer");
 const Saran = require("../models/saranModel");
+const { uploadImage } = require("./uploadController");
 
 exports.saran = async (req, res) => {
   try {
     const { nama, email, pesan } = req.body;
+    const imageFile = req.file; // Ambil file gambar dari permintaan
 
     if (!nama || !email || !pesan) {
       return res.status(400).json({ message: "Semua field harus diisi" });
     }
 
-    const saranBaru = new Saran({ nama, email, pesan });
+    let imageUrl = "";
+    if (imageFile) {
+      imageUrl = await uploadImage(imageFile); // Panggil fungsi uploadImage
+    }
+
+    // Simpan data ke MongoDB termasuk URL gambar
+    const saranBaru = new Saran({ nama, email, pesan, imageUrl });
     await saranBaru.save();
 
     // Mengirim email setelah saran tersimpan
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "asd",
-        pass: "asdasd",
+        user: "hendriktarigan52@gmail.com",
+        pass: "bhmq qnjx wsxg tpbv",
       },
     });
 
     const mailOptions = {
       from: email,
-      to: "asd",
+      to: "hendriktarigan52@gmail.com",
       subject: "Masukkan atau Saran",
-      text: `Nama: ${nama}\nEmail: ${email}\nPesan: ${pesan}`,
+      text: `Nama: ${nama}\nEmail: ${email}\nPesan: ${pesan}\nURL Gambar: ${imageUrl}`,
     };
+
     console.log("Mempersiapkan untuk mengirim email...");
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
@@ -36,9 +45,9 @@ exports.saran = async (req, res) => {
       }
     });
 
-    res
-      .status(201)
-      .json({ message: "Saran berhasil disimpan dan email terkirim" });
+    res.status(201).json({
+      message: "Saran berhasil disimpan, gambar terunggah, dan email terkirim",
+    });
   } catch (error) {
     console.error("Error saat menyimpan saran:", error);
     res
