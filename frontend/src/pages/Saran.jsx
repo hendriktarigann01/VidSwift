@@ -4,6 +4,7 @@ const Saran = ({ setLoading }) => {
   const [nama, setNama] = useState("");
   const [email, setEmail] = useState("");
   const [pesan, setPesan] = useState("");
+  const [uploadImage, setuploadImage] = useState(null);
   const [status, setStatus] = useState("");
 
   const handleSubmit = async (e) => {
@@ -78,6 +79,19 @@ const Saran = ({ setLoading }) => {
             className="w-full p-2 border border-gray-300"
             required
           ></textarea>
+        </div>
+        <div className="mb-4">
+          <label htmlFor="pesan" className="block">
+            Upload Image
+          </label>
+          <input
+            type="file"
+            id="uploadImage"
+            value={uploadImage}
+            onChange={(e) => setuploadImage(e.target.value)}
+            className="w-full p-2 border border-gray-300"
+            required
+          ></input>
         </div>
         <button
           type="submit"
