@@ -39,7 +39,6 @@ app.use(
 
 app.use("/api/auth", authRoutes);
 app.use("/api", saranRoutes);
-app.use("/api", uploadRoutes)
 
 // Jalankan server
 app.listen(PORT, () => {

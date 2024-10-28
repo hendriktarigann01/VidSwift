@@ -1,26 +1,41 @@
+const cloudinary = require("../utils/cloudinary");
+const streamifier = require("streamifier");
 const nodemailer = require("nodemailer");
 const Saran = require("../models/saranModel");
-const { uploadImage } = require("./uploadController");
 
 exports.saran = async (req, res) => {
   try {
     const { nama, email, pesan } = req.body;
-    const imageFile = req.file; // Ambil file gambar dari permintaan
 
     if (!nama || !email || !pesan) {
-      return res.status(400).json({ message: "Semua field harus diisi" });
+      return res.status(400).json({ message: "All fields are required" });
     }
 
-    let imageUrl = "";
-    if (imageFile) {
-      imageUrl = await uploadImage(imageFile); // Panggil fungsi uploadImage
-    }
-
-    // Simpan data ke MongoDB termasuk URL gambar
-    const saranBaru = new Saran({ nama, email, pesan, imageUrl });
+    // Save suggestion to the database
+    const saranBaru = new Saran({ nama, email, pesan });
     await saranBaru.save();
 
-    // Mengirim email setelah saran tersimpan
+    // Handle image upload if an image is provided
+    let imageUrl = null;
+    if (req.file) {
+      // Using a promise to wait for the upload result
+      imageUrl = await new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+          { folder: "tesimage" },
+          (error, result) => {
+            if (error) {
+              console.error("Error uploading to Cloudinary:", error);
+              reject("Error uploading to Cloudinary");
+            } else {
+              resolve(result.url);
+            }
+          }
+        );
+        streamifier.createReadStream(req.file.buffer).pipe(uploadStream);
+      });
+    }
+
+    // Send email after saving suggestion and completing image upload
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -33,25 +48,26 @@ exports.saran = async (req, res) => {
       from: email,
       to: "hendriktarigan52@gmail.com",
       subject: "Masukkan atau Saran",
-      text: `Nama: ${nama}\nEmail: ${email}\nPesan: ${pesan}\nURL Gambar: ${imageUrl}`,
+      text: `Nama: ${nama}\nEmail: ${email}\nPesan: ${pesan}\nImage URL: ${
+        imageUrl || "No image uploaded"
+      }`,
     };
 
-    console.log("Mempersiapkan untuk mengirim email...");
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
-        console.error("Error saat mengirim email:", error);
+        console.error("Error sending email:", error);
       } else {
-        console.log("Email berhasil dikirim: " + info.response);
+        console.log("Email sent successfully: " + info.response);
       }
     });
 
     res.status(201).json({
-      message: "Saran berhasil disimpan, gambar terunggah, dan email terkirim",
+      message: "Suggestion saved and email sent successfully",
+      imageUrl,
     });
   } catch (error) {
-    console.error("Error saat menyimpan saran:", error);
-    res
-      .status(500)
-      .json({ message: "Terjadi kesalahan saat menyimpan data", error });
+    console.error("Error saving suggestion:", error);
+    res.status(500).json({ message: "Server error", error });
   }
 };
+
