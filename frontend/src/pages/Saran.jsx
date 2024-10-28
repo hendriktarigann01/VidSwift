@@ -4,38 +4,41 @@ const Saran = ({ setLoading }) => {
   const [nama, setNama] = useState("");
   const [email, setEmail] = useState("");
   const [pesan, setPesan] = useState("");
-  const [uploadImage, setuploadImage] = useState(null);
+  const [uploadImage, setUploadImage] = useState(null);
   const [status, setStatus] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // Mulai loading
+    setLoading(true);
 
-    // Simulasikan loading selama 5 detik
-    setTimeout(async () => {
-      try {
-        const response = await fetch("http://localhost:5000/api/saran", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ nama, email, pesan }),
-        });
+    const formData = new FormData();
+    formData.append("nama", nama);
+    formData.append("email", email);
+    formData.append("pesan", pesan);
+    if (uploadImage) {
+      formData.append("tesimage", uploadImage);
+    }
 
-        if (response.ok) {
-          setStatus("Saran berhasil dikirim!");
-          setNama("");
-          setEmail("");
-          setPesan("");
-        } else {
-          setStatus("Terjadi kesalahan. Coba lagi.");
-        }
-      } catch (error) {
-        setStatus("Terjadi kesalahan pada server.");
-      } finally {
-        setLoading(false); // Akhiri loading setelah proses selesai
+    try {
+      const response = await fetch("http://localhost:5000/api/saran", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        setStatus("Saran berhasil dikirim!");
+        setNama("");
+        setEmail("");
+        setPesan("");
+        setUploadImage(null);
+      } else {
+        setStatus("Terjadi kesalahan. Coba lagi.");
       }
-    }, 5000); // 5000 ms = 5 detik
+    } catch (error) {
+      setStatus("Terjadi kesalahan pada server.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -81,17 +84,16 @@ const Saran = ({ setLoading }) => {
           ></textarea>
         </div>
         <div className="mb-4">
-          <label htmlFor="pesan" className="block">
-            Upload Image
+          <label htmlFor="uploadImage" className="block">
+            Upload Image:
           </label>
           <input
             type="file"
+            name="tesimage"
             id="uploadImage"
-            value={uploadImage}
-            onChange={(e) => setuploadImage(e.target.value)}
+            onChange={(e) => setUploadImage(e.target.files[0])}
             className="w-full p-2 border border-gray-300"
-            required
-          ></input>
+          />
         </div>
         <button
           type="submit"
