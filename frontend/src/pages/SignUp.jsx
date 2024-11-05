@@ -86,21 +86,23 @@ const SignUp = ({ setLoading }) => {
         <div className="flex justify-center pt-12 md:justify-start md:pl-12">
           <a
             href="#"
-            className="border-b-gray-700 border-b-4 pb-2 text-2xl font-bold text-gray-900"
+            className="border-b-gray-700 border-b-4 pb-2 text-2xl font-bold text-gray-900 dark:text-gray-400 dark:border-b-gray-500"
           >
             VidSwift .
           </a>
         </div>
         <div className="lg:w-[28rem] mx-auto my-auto flex flex-col justify-center pt-8 md:justify-start md:px-6 md:pt-0">
-          <p className="text-left text-3xl font-medium">Sign Up</p>
+          <p className="text-left text-3xl font-medium dark:text-gray-400">
+            Sign Up
+          </p>
 
           <form className="flex flex-col pt-3 md:pt-8" onSubmit={handleSubmit}>
             <div className="flex flex-col pt-4">
-              <div className="focus-within:border-b-gray-500 relative flex overflow-hidden border-b-2 transition">
+              <div className="relative flex overflow-hidden border-b-2 border-gray-300 dark:border-gray-500 transition focus-within:border-b-gray-500 dark:focus-within:border-b-gray-700">
                 <input
                   type="email"
                   name="email"
-                  className="w-full flex-1 appearance-none border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
+                  className="w-full flex-1 appearance-none bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:outline-none dark:bg-transparent dark:text-gray-300"
                   placeholder="Email Address"
                   value={formData.email}
                   onChange={handleInputChange}
@@ -109,11 +111,11 @@ const SignUp = ({ setLoading }) => {
               </div>
             </div>
             <div className="flex flex-col pt-4">
-              <div className="focus-within:border-b-gray-500 relative flex overflow-hidden border-b-2 transition">
+              <div className="relative flex overflow-hidden border-b-2 border-gray-300 dark:border-gray-500 transition focus-within:border-b-gray-500 dark:focus-within:border-b-gray-700">
                 <input
                   type={showPassword ? "text" : "password"}
                   name="password"
-                  className="w-full flex-1 appearance-none border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
+                  className="w-full flex-1 appearance-none bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:outline-none dark:bg-transparent dark:text-gray-300"
                   placeholder="Password"
                   value={formData.password}
                   onChange={handleInputPassword}
@@ -137,17 +139,17 @@ const SignUp = ({ setLoading }) => {
                         icon={faEye}
                         className="text-xs text-gray-300"
                       />
-                    </span> // Ikon mata terbuka
+                    </span>
                   )}
                 </button>
               </div>
             </div>
             <div className="flex flex-col pt-4">
-              <div className="focus-within:border-b-gray-500 relative flex overflow-hidden border-b-2 transition">
+              <div className="relative flex overflow-hidden border-b-2 border-gray-300 dark:border-gray-500 transition focus-within:border-b-gray-500 dark:focus-within:border-b-gray-700">
                 <input
                   type="text"
                   name="username"
-                  className="w-full flex-1 appearance-none border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
+                  className="w-full flex-1 appearance-none bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:outline-none dark:bg-transparent dark:text-gray-300"
                   placeholder="Username"
                   value={formData.username}
                   onChange={handleInputChange}
@@ -156,11 +158,11 @@ const SignUp = ({ setLoading }) => {
               </div>
             </div>
             <div className="mb-12 flex flex-col pt-4">
-              <div className="focus-within:border-b-gray-500 relative flex overflow-hidden border-b-2 transition">
+              <div className="relative flex overflow-hidden border-b-2 border-gray-300 dark:border-gray-500 transition focus-within:border-b-gray-500 dark:focus-within:border-b-gray-700">
                 <input
                   type="text"
                   name="fullName"
-                  className="w-full flex-1 appearance-none border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
+                  className="w-full flex-1 appearance-none bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:outline-none dark:bg-transparent dark:text-gray-300"
                   placeholder="Full Name"
                   value={formData.fullName}
                   onChange={handleInputChange}
@@ -170,18 +172,18 @@ const SignUp = ({ setLoading }) => {
             </div>
             <button
               type="submit"
-              className="w-full rounded-lg bg-gray-900 px-4 py-2 text-center text-base font-semibold text-white shadow-md ring-gray-500 ring-offset-2 transition focus:ring-2"
+              className="w-full rounded-lg bg-gray-900 px-4 py-2 text-center text-base font-semibold text-white shadow-md ring-gray-500 ring-offset-2 transition focus:ring-2 dark:shadow-none dark:bg-gray-500 dark:hover:bg-gray-700 dark:focus:ring-0"
             >
               Sign Up
             </button>
           </form>
 
           <div className="py-12 text-center">
-            <p className="whitespace-nowrap text-gray-600">
+            <p className="whitespace-nowrap text-gray-600 dark:text-gray-400">
               Already have an account?{" "}
               <span
                 onClick={handleSignInClick}
-                className="underline-offset-4 font-semibold text-gray-900 underline cursor-pointer"
+                className="underline-offset-4 font-semibold text-gray-900 underline cursor-pointer dark:text-gray-300"
               >
                 Sign In
               </span>
