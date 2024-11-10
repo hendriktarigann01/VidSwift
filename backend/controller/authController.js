@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
@@ -85,6 +86,61 @@ exports.getProfile = async (req, res) => {
       return res.status(404).json({ error: "Pengguna tidak ditemukan" });
     }
     res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: "Terjadi kesalahan pada server" });
+  }
+};
+
+//Forgot Password
+exports.forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      return res.status(400).json({ error: "Email is required" });
+    }
+
+    const user = await User.findOne({ email: email });
+    if (!user) {
+      return res.status(400).json({ error: "Email tidak terdaftar" });
+    }
+
+    // Generate reset token
+    const resetToken = crypto.randomBytes(32).toString("hex");
+    user.token = resetToken;
+    user.tokenExpired = Date.now() + 60000; // Token berlaku selama 1 jam apabila 3600000
+    await user.save();
+
+    // Send email (logika pengiriman email tidak ditampilkan di sini)
+    const resetUrl = `http://localhost:3000/resetPassword/${resetToken}`;
+    console.log(`Kirim email ke ${email} dengan tautan: ${resetUrl}`);
+
+    res.json({
+      message: "Tautan reset kata sandi telah dikirim ke email Anda",
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Terjadi kesalahan pada server" });
+  }
+};
+
+// Reset Password
+exports.resetPassword = async (req, res) => {
+  try {
+    const { token, newPassword } = req.body;
+    if (!token || !newPassword) {
+      return res.status(400).json({ error: "Token dan kata sandi baru diperlukan" });
+    }
+
+    const user = await User.findOne({ token: token, tokenExpired: { $gt: Date.now() } });
+    if (!user) {
+      return res.status(400).json({ error: "Token tidak valid atau telah kedaluwarsa" });
+    }
+
+    user.password = await bcrypt.hash(newPassword, 10);
+    user.token = undefined; // Hapus token 
+    user.tokenExpired = undefined; // Hapus tanggal kedaluwarsa token
+    await user.save();
+
+    res.json({ message: "Kata sandi berhasil diperbarui" });
   } catch (error) {
     res.status(500).json({ error: "Terjadi kesalahan pada server" });
   }

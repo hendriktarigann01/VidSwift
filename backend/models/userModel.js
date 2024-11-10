@@ -20,6 +20,12 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  token: {
+    type: String,
+  },
+  tokenExpired: {
+    type: Date,
+  },
 });
 
 module.exports = mongoose.model("User", userSchema);
