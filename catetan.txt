@@ -1,9 +1,4 @@
-feature Sudah Dibuat
-1.tiktok
-like
-view ^DONEEE
-followers
+margin top header kecuali dashboard
 
-Feature yang belum dibuat
-facebook ^DONEEE
-instagram ^DONEEE
+login email
+toast username
