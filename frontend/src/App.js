@@ -10,6 +10,8 @@ import Tutorial from "./pages/Tutorial";
 import VideoDownloader from "./components/VideoDownloader";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import Footer from "./navbar/Footer";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -17,14 +19,20 @@ import Saran from "./pages/Saran";
 import Loader from "./components/Loader";
 
 function App() {
-  // Mendefinisikan state isLoggedIn
+  // State untuk autentikasi dan loading
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
-  const location = useLocation();
-  const isAuthPage =
-    location.pathname === "/SignIn" || location.pathname === "/SignUp";
 
-  // Mengecek status autentikasi ketika komponen pertama kali dimuat
+  const location = useLocation();
+
+  // Menentukan apakah halaman saat ini adalah halaman autentikasi
+  const isAuthPage =
+    location.pathname === "/SignIn" ||
+    location.pathname === "/SignUp" ||
+    location.pathname === "/forgot-password" ||
+    location.pathname === "/reset-password";
+
+  // Mengecek status autentikasi saat komponen dimuat
   useEffect(() => {
     const authStatus = localStorage.getItem("isLoggedIn");
     if (authStatus === "true") {
@@ -37,28 +45,29 @@ function App() {
       <Helmet>
         <title>VidSwift</title>
       </Helmet>
+
+      {/* Tampilkan Header jika bukan halaman autentikasi */}
       {!isAuthPage && <Header setLoading={setLoading} />}
+
+      {/* Konten Utama */}
       <div className={`flex-grow ${loading ? "blur-sm" : ""}`}>
         <Routes>
           <Route path="/" element={<Navigate to="/dashboard" />} />
           <Route path="/dashboard" element={<VideoDownloader />} />
           <Route
-            path="/header"
-            element={<Header setLoading={setLoading} loading={loading} />}
-          />
-          <Route
             path="/SignIn"
             element={
-              <SignIn
-                setLoading={setLoading}
-                loading={loading}
-                setIsLoggedIn={setIsLoggedIn}
-              />
+              <SignIn setLoading={setLoading} setIsLoggedIn={setIsLoggedIn} />
             }
           />
+          <Route path="/SignUp" element={<SignUp setLoading={setLoading} />} />
           <Route
-            path="/SignUp"
-            element={<SignUp setLoading={setLoading} loading={loading} />}
+            path="/forgot-password"
+            element={<ForgotPassword setLoading={setLoading} />}
+          />
+          <Route
+            path="/reset-password"
+            element={<ResetPassword setLoading={setLoading} />}
           />
           <Route path="/tutorial" element={<Tutorial />} />
           <Route path="/generate-image" element={<GenerateImage />} />
@@ -66,13 +75,14 @@ function App() {
           <Route path="/social-media" element={<SocialMedia />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route
-            path="/saran"
-            element={<Saran setLoading={setLoading} loading={loading} />}
-          />
+          <Route path="/saran" element={<Saran setLoading={setLoading} />} />
         </Routes>
       </div>
+
+      {/* Tampilkan Footer jika bukan halaman autentikasi */}
       {!isAuthPage && <Footer />}
+
+      {/* Overlay Loader */}
       {loading && (
         <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50">
           <Loader />

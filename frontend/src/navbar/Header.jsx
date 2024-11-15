@@ -10,8 +10,8 @@ import Modal from "../components/Modal";
 
 const Header = ({ setLoading }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
-  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,8 +51,8 @@ const Header = ({ setLoading }) => {
   };
 
   return (
-    <header>
-      <nav className="bg-blue-500 rounded-lg m-2 border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-blue-500 backdrop-blur-md px-4 lg:px-6 py-4 dark:bg-gray-800">
+      <nav>
         <div className="relative flex flex-wrap items-center justify-between mx-auto max-w-screen-xl">
           <a href="https://flowbite.com" className="flex items-center">
             <img src={logo} className="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />

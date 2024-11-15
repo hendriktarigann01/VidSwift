@@ -129,14 +129,14 @@ const SignIn = ({ setLoading, setIsLoggedIn }) => {
                     <span role="img" aria-label="Hide password">
                       <FontAwesomeIcon
                         icon={faEyeSlash}
-                        className="text-xs text-gray-300"
+                        className="text-xs text-gray-300 hover:text-gray-500"
                       />
                     </span>
                   ) : (
                     <span role="img" aria-label="Show password">
                       <FontAwesomeIcon
                         icon={faEye}
-                        className="text-xs text-gray-300"
+                        className="text-xs text-gray-300 hover:text-gray-500"
                       />
                     </span>
                   )}
@@ -156,12 +156,19 @@ const SignIn = ({ setLoading, setIsLoggedIn }) => {
               Don't have an account?{" "}
               <span
                 onClick={handleSignUpClick}
-                className="underline-offset-4 font-semibold text-gray-900 underline cursor-pointer dark:text-gray-300"
+                className="underline-offset-4 font-semibold text-gray-900 underline cursor-pointer dark:text-gray-300 hover:text-blue-500"
               >
                 Sign up for free.
               </span>
             </p>
           </div>
+          <a
+            href="/forgot-password"
+            className="font-semibold text-gray-900 cursor-pointer dark:text-gray-300 hover:underline-offset-4 hover:underline hover:text-blue-500"
+            aria-current="page"
+          >
+            Forgot Password?
+          </a>
         </div>
       </div>
 

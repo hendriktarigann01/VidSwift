@@ -156,7 +156,7 @@ const YouTubeDownloader = () => {
           </span>
         </div>
       )}
-      <div className="mt-4" dangerouslySetInnerHTML={{ __html: result }}></div>
+      <div className="mb-28" dangerouslySetInnerHTML={{ __html: result }}></div>
     </div>
   );
 };
