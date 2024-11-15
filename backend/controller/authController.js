@@ -1,7 +1,13 @@
+require("dotenv").config();
+const nodemailer = require("nodemailer");
+const fs = require("fs");
+const path = require("path");
+const handlebars = require("handlebars");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
+const EmailTemplate = require("../EmailTemplate.hbs");
 
 // Register
 exports.register = async (req, res) => {
@@ -56,9 +62,9 @@ exports.login = async (req, res) => {
     // Store JWT in cookie
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false, 
+      secure: false,
       sameSite: "Strict",
-      maxAge: 3600000, 
+      maxAge: 3600000,
     });
 
     res.json({ message: "Login Berhasil" });
@@ -91,7 +97,14 @@ exports.getProfile = async (req, res) => {
   }
 };
 
-//Forgot Password
+// Forgot Password
+// Fungsi untuk merender template email menggunakan Handlebars
+const renderTemplate = (templatePath, data) => {
+  const templateFile = fs.readFileSync(templatePath, "utf8");
+  const template = handlebars.compile(templateFile);
+  return template(data);
+};
+
 exports.forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
@@ -107,17 +120,42 @@ exports.forgotPassword = async (req, res) => {
     // Generate reset token
     const resetToken = crypto.randomBytes(32).toString("hex");
     user.token = resetToken;
-    user.tokenExpired = Date.now() + 60000; // Token berlaku selama 1 jam apabila 3600000
+    user.tokenExpired = Date.now() + 3600000; // Token berlaku 1 jam
     await user.save();
 
-    // Send email (logika pengiriman email tidak ditampilkan di sini)
-    const resetUrl = `http://localhost:3000/resetPassword/${resetToken}`;
-    console.log(`Kirim email ke ${email} dengan tautan: ${resetUrl}`);
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    // Tentukan path untuk file template
+    const templatePath = path.join(__dirname, "../EmailTemplate.hbs");
+    
+    // Render template dengan data yang diperlukan
+    const emailHtml = renderTemplate(templatePath, { resetToken, email });
+
+    // Email options
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "Password Reset Request",
+      html: emailHtml,
+    };
+
+    // Send email
+    await transporter.sendMail(mailOptions);
+    console.log(
+      `Kirim email ke ${email} dengan tautan: http://localhost:3000/reset-password/${resetToken}`
+    );
 
     res.json({
       message: "Tautan reset kata sandi telah dikirim ke email Anda",
     });
   } catch (error) {
+    console.error(error); // Log error untuk debugging
     res.status(500).json({ error: "Terjadi kesalahan pada server" });
   }
 };
@@ -127,16 +165,23 @@ exports.resetPassword = async (req, res) => {
   try {
     const { token, newPassword } = req.body;
     if (!token || !newPassword) {
-      return res.status(400).json({ error: "Token dan kata sandi baru diperlukan" });
+      return res
+        .status(400)
+        .json({ error: "Token dan kata sandi baru diperlukan" });
     }
 
-    const user = await User.findOne({ token: token, tokenExpired: { $gt: Date.now() } });
+    const user = await User.findOne({
+      token: token,
+      tokenExpired: { $gt: Date.now() },
+    });
     if (!user) {
-      return res.status(400).json({ error: "Token tidak valid atau telah kedaluwarsa" });
+      return res
+        .status(400)
+        .json({ error: "Token tidak valid atau telah kedaluwarsa" });
     }
 
     user.password = await bcrypt.hash(newPassword, 10);
-    user.token = undefined; // Hapus token 
+    user.token = undefined; // Hapus token
     user.tokenExpired = undefined; // Hapus tanggal kedaluwarsa token
     await user.save();
 
