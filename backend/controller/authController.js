@@ -41,12 +41,18 @@ exports.login = async (req, res) => {
     if (!username || !password) {
       return res
         .status(400)
-        .json({ error: "Username and password are required" });
+        .json({ error: "Username/Email and password harus diisi" });
     }
 
-    const user = await User.findOne({ username: username });
+    const isEmail = username.includes("@");
+
+    const user = await User.findOne(
+      isEmail ? { email: username } : { username: username }
+    );
     if (!user) {
-      return res.status(400).json({ error: "Username Salah" });
+      return res
+        .status(400)
+        .json({ error: "Username atau email tidak ditemukan" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
@@ -98,8 +104,8 @@ exports.getProfile = async (req, res) => {
 };
 
 // Forgot Password
-// Fungsi untuk merender template email menggunakan Handlebars
 const renderTemplate = (templatePath, data) => {
+  // Fungsi untuk merender template email menggunakan Handlebars
   const templateFile = fs.readFileSync(templatePath, "utf8");
   const template = handlebars.compile(templateFile);
   return template(data);
@@ -133,7 +139,7 @@ exports.forgotPassword = async (req, res) => {
 
     // Tentukan path untuk file template
     const templatePath = path.join(__dirname, "../EmailTemplate.hbs");
-    
+
     // Render template dengan data yang diperlukan
     const emailHtml = renderTemplate(templatePath, { resetToken, email });
 

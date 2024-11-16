@@ -102,7 +102,7 @@ const SignIn = ({ setLoading, setIsLoggedIn }) => {
                   type="text"
                   name="username"
                   className="w-full flex-1 appearance-none bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:outline-none dark:bg-transparent dark:text-gray-300"
-                  placeholder="Username"
+                  placeholder="Username Or Email"
                   value={formData.username}
                   onChange={handleInputChange}
                   required
