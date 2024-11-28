@@ -18,8 +18,20 @@ const TikTokDownloader = () => {
       .then((response) => response.json())
       .then((data) => {
         setLoading(false);
-        if (data && data.data) {
-          const { title, cover, duration, hdplay, author } = data.data;
+        if (data && data.data && data.data.data) {
+          const {
+            title,
+            cover,
+            duration,
+            hdplay,
+            music_info,
+            play_count,
+            digg_count,
+            comment_count,
+            share_count,
+            author,
+          } = data.data.data;
+
           const formattedResult = `
           <div class="flex justify-center">
             <div class="w-full max-w-3xl">
@@ -33,32 +45,54 @@ const TikTokDownloader = () => {
                   </thead>
                   <tbody class="bg-white divide-y divide-gray-200">
                     <tr>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">TikTok Video</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-wrap text-sm text-gray-500 text-center font-semibold">${title}</td>
+                      <td class="px-6 py-4 text-sm font-medium text-gray-500">Title</td>
+                      <td class="px-6 py-4 text-sm text-gray-500 text-center">${title}</td>
                     </tr>
                     <tr>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">Cover Image</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                        <img src="${cover}" alt="Cover Image" class="w-32 h-32 object-cover mx-auto" />
+                      <td class="px-6 py-4 text-sm font-medium text-gray-500">Cover Image</td>
+                      <td class="px-6 py-4 text-sm text-gray-500 text-center">
+                        <img src="${cover}" alt="Cover" class="w-32 h-32 object-cover mx-auto" />
                       </td>
                     </tr>
                     <tr>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">Duration</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">${duration} seconds</td>
+                      <td class="px-6 py-4 text-sm font-medium text-gray-500">Duration</td>
+                      <td class="px-6 py-4 text-sm text-gray-500 text-center">${duration} seconds</td>
                     </tr>
                     <tr>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">Watch Video</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                        <a href="${hdplay}" class="text-blue-500 hover:underline">Watch Video</a>
+                      <td class="px-6 py-4 text-sm font-medium text-gray-500">HD Video</td>
+                      <td class="px-6 py-4 text-sm text-gray-500 text-center">
+                        <a href="${hdplay}" class="text-blue-500 hover:underline" target="_blank">Download Video</a>
                       </td>
                     </tr>
                     <tr>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">Author</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">${author.nickname}</td>
+                      <td class="px-6 py-4 text-sm font-medium text-gray-500">Music</td>
+                      <td class="px-6 py-4 text-sm text-gray-500 text-center">
+                        <a href="${music_info.play}" class="text-blue-500 hover:underline" target="_blank">${music_info.title}</a>
+                      </td>
                     </tr>
                     <tr>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">Author Avatar</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                      <td class="px-6 py-4 text-sm font-medium text-gray-500">Play Count</td>
+                      <td class="px-6 py-4 text-sm text-gray-500 text-center">${play_count}</td>
+                    </tr>
+                    <tr>
+                      <td class="px-6 py-4 text-sm font-medium text-gray-500">Likes</td>
+                      <td class="px-6 py-4 text-sm text-gray-500 text-center">${digg_count}</td>
+                    </tr>
+                    <tr>
+                      <td class="px-6 py-4 text-sm font-medium text-gray-500">Comments</td>
+                      <td class="px-6 py-4 text-sm text-gray-500 text-center">${comment_count}</td>
+                    </tr>
+                    <tr>
+                      <td class="px-6 py-4 text-sm font-medium text-gray-500">Shares</td>
+                      <td class="px-6 py-4 text-sm text-gray-500 text-center">${share_count}</td>
+                    </tr>
+                    <tr>
+                      <td class="px-6 py-4 text-sm font-medium text-gray-500">Author</td>
+                      <td class="px-6 py-4 text-sm text-gray-500 text-center">${author.nickname}</td>
+                    </tr>
+                    <tr>
+                      <td class="px-6 py-4 text-sm font-medium text-gray-500">Author Avatar</td>
+                      <td class="px-6 py-4 text-sm text-gray-500 text-center">
                         <img src="${author.avatar}" alt="Author Avatar" class="w-16 h-16 rounded-full mx-auto" />
                       </td>
                     </tr>
