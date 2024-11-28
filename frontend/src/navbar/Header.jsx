@@ -189,11 +189,10 @@ const Header = ({ setLoading }) => {
         </div>
       </nav>
 
-      {/* Modal for Logout Confirmation */}
       <Modal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)} // Close the modal
-        onConfirm={handleLogout} // Confirm logout
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleLogout}
       />
     </header>
   );

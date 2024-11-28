@@ -4,7 +4,7 @@ const Modal = ({ isOpen, onClose, onConfirm }) => {
   if (!isOpen) return null; // Don't render anything if not open
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 h-screen">
       <div className="bg-white rounded-lg shadow-lg p-6">
         <h2 className="text-lg font-bold">Konfirmasi Logout</h2>
         <p>Apakah Anda yakin ingin keluar?</p>
