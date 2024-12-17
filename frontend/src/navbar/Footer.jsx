@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-blue-500 rounded-lg shadow m-2 py-2.5 dark:bg-gray-800">
+    <footer className="bg-blue-500 rounded-lg shadow m-2 py-2 dark:bg-gray-800">
       <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-        <ul className="flex flex-wrap mx-auto justify-center mb-3 text-sm font-medium text-white dark:text-gray-400  sm:mx-0 sm:mt-0 order-1 md:order-1">
+        <ul className="flex flex-wrap mx-auto justify-center text-sm font-medium text-white dark:text-gray-400  sm:mx-0 sm:mt-0 order-1 md:order-1">
           <li>
             <Link to="/about" className="hover:underline me-4 md:me-6">
               About
