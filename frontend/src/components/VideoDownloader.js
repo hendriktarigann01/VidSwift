@@ -40,7 +40,7 @@ const VideoDownloader = () => {
 
   return (
     <div
-      className={`mt-28 text-center justify-center m-auto ${
+      className={`mt-28 text-center min-h-screen justify-center m-auto ${
         darkMode ? "darkmode" : ""
       }`}
       onClick={handleBackgroundClick}
