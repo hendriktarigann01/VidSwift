@@ -18,14 +18,14 @@ const connectDb = async () => {
   }
 };
 
-app.get("/", (req, res) => {
+app.get("/", (res) => {
   res.json("Hello GES!");
 });
 
 // Middleware
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: ["https://vidswift.vercel.app"],
     credentials: true,
   })
 );

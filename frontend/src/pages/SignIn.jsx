@@ -37,14 +37,17 @@ const SignIn = ({ setLoading, setIsLoggedIn }) => {
     setLoading(true);
     setTimeout(async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/auth/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify(formData),
-        });
+        const response = await fetch(
+          "https://vidswift-api.vercel.app/api/auth/login",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+            body: JSON.stringify(formData),
+          }
+        );
 
         const data = await response.json();
         if (response.ok) {

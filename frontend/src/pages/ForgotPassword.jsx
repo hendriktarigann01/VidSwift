@@ -22,7 +22,7 @@ const ForgotPassword = ({ setLoading }) => {
     setTimeout(async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/auth/forgotPassword",
+          "https://vidswift-api.vercel.app/api/auth/forgotPassword",
           {
             method: "POST",
             headers: {

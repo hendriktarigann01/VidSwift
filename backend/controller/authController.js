@@ -154,7 +154,7 @@ exports.forgotPassword = async (req, res) => {
     // Send email
     await transporter.sendMail(mailOptions);
     console.log(
-      `Kirim email ke ${email} dengan tautan: http://localhost:3000/reset-password/${resetToken}`
+      `Kirim email ke ${email} dengan tautan: https://vidswift.vercel.app/reset-password/${resetToken}`
     );
 
     res.json({

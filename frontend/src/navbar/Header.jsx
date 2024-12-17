@@ -25,10 +25,13 @@ const Header = ({ setLoading }) => {
     setTimeout(async () => {
       try {
         // Send request to the backend to log out
-        const response = await fetch("http://localhost:5000/api/auth/logout", {
-          method: "POST",
-          credentials: "include", // To include the session cookie in the request
-        });
+        const response = await fetch(
+          "https://vidswift-api.vercel.app/api/auth/logout",
+          {
+            method: "POST",
+            credentials: "include", // To include the session cookie in the request
+          }
+        );
 
         if (response.ok) {
           // Clear the login status on the frontend

@@ -20,10 +20,13 @@ const Saran = ({ setLoading }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/saran", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        "https://vidswift-api.vercel.app/api/saran",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (response.ok) {
         setStatus("Saran berhasil dikirim!");
