@@ -26,7 +26,7 @@ const Header = ({ setLoading }) => {
       try {
         // Send request to the backend to log out
         const response = await fetch(
-          "https://vidswift-api.vercel.app/api/auth/logout",
+          "https://vidswift-b5yy085si-hendriks-projects-80014419.vercel.app/api/auth/logout",
           {
             method: "POST",
             credentials: "include", // To include the session cookie in the request

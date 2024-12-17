@@ -18,9 +18,11 @@ const connectDb = async () => {
   }
 };
 
-app.get("/", (res) => {
+app.get("/", (req, res) => {
   res.json("Hello GES!");
 });
+
+app.options("*", cors());
 
 // Middleware
 app.use(
@@ -36,7 +38,7 @@ app.use(
     secret: "your-secret-key",
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false },
+    cookie: { secure: true },
   })
 );
 
