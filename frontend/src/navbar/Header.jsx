@@ -99,30 +99,27 @@ const Header = ({ setLoading }) => {
           {/* Navigation Menu */}
           <div
             className={`${
-              isMenuOpen ? "block items-center" : "hidden"
-            } w-full lg:flex lg:w-auto lg:order-1 justify-center`}
-            id="mobile-menu"
+              isMenuOpen ? "block" : "hidden"
+            } mt-4 lg:flex lg:mt-0 flex-col lg:flex-row absolute lg:relative top-full left-0 w-full lg:w-auto bg-gray-700 lg:bg-transparent shadow-md lg:shadow-none z-40`}
           >
-            <ul className="flex flex-row flex-nowrap whitespace-nowrap gap-5 font-medium lg:mt-0">
-              <li className="block items-center sm:justify-center sm:flex">
+            <ul className="flex flex-col lg:flex-row lg:space-x-5 px-4 lg:px-0 py-4 lg:py-0 text-gray-800 lg:text-white dark:text-gray-200">
+              <li className="block">
                 <a
                   href="/dashboard"
-                  className="block items-center py-2 pr-4 pl-3 text-white hover:text-blue-950 rounded lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-gray-400 dark:hover:text-slate-200"
-                  aria-current="page"
+                 className="block items-center py-2 pr-4 pl-3 text-white hover:text-blue-950 rounded lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-gray-400 dark:hover:text-slate-200"
                 >
                   Download
                 </a>
               </li>
-              <li className="block items-center sm:justify-center sm:flex">
+              <li className="block">
                 <a
                   href="/tutorial"
-                  className="block items-center py-2 pr-4 pl-3 text-white hover:text-blue-950 rounded lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-gray-400 dark:hover:text-slate-200"
-                  aria-current="page"
+                 className="block items-center py-2 pr-4 pl-3 text-white hover:text-blue-950 rounded lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-gray-400 dark:hover:text-slate-200"
                 >
                   Tutorial
                 </a>
               </li>
-              <li className="block items-center sm:justify-center sm:flex">
+              <li className="block">
                 <Link
                   to={isLoggedIn ? "/generate-image" : "#"}
                   onClick={(e) => {
@@ -131,13 +128,12 @@ const Header = ({ setLoading }) => {
                       alert("You must be logged in to access Generate Image.");
                     }
                   }}
-                  className="block items-center py-2 pr-4 pl-3 text-white hover:text-blue-950 rounded lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-gray-400 dark:hover:text-slate-200"
-                  aria-current="page"
+                 className="block items-center py-2 pr-4 pl-3 text-white hover:text-blue-950 rounded lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-gray-400 dark:hover:text-slate-200"
                 >
                   Generate Image
                 </Link>
               </li>
-              <li className="block items-center sm:justify-center sm:flex">
+              <li className="block">
                 <Link
                   to={isLoggedIn ? "/social-media" : "#"}
                   onClick={(e) => {
@@ -146,13 +142,12 @@ const Header = ({ setLoading }) => {
                       alert("You must be logged in to access Social Media.");
                     }
                   }}
-                  className="block items-center py-2 pr-4 pl-3 text-white hover:text-blue-950 rounded lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-gray-400 dark:hover:text-slate-200"
-                  aria-current="page"
+                 className="block items-center py-2 pr-4 pl-3 text-white hover:text-blue-950 rounded lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-gray-400 dark:hover:text-slate-200"
                 >
-                  Social Media <FontAwesomeIcon icon={faSquarePlus} />
+                  Social Media
                 </Link>
               </li>
-              <li className="block items-center sm:justify-center sm:flex">
+              <li className="block">
                 <Link
                   to={isLoggedIn ? "/remove-bg" : "#"}
                   onClick={(e) => {
@@ -163,28 +158,25 @@ const Header = ({ setLoading }) => {
                       );
                     }
                   }}
-                  className="block items-center py-2 pr-4 pl-3 text-white hover:text-blue-950 rounded lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-gray-400 dark:hover:text-slate-200"
-                  aria-current="page"
+                 className="block items-center py-2 pr-4 pl-3 text-white hover:text-blue-950 rounded lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-gray-400 dark:hover:text-slate-200"
                 >
                   Remove Background
                 </Link>
               </li>
               {!isLoggedIn && (
                 <>
-                  <li className="block items-center sm:justify-center sm:flex">
+                  <li className="block">
                     <Link
                       to="/SignIn"
-                      className="block font-medium py-2 pr-4 pl-3 text-white hover:scale-105 bg-gradient-to-r from-primary-700 to-primary-800 lg:bg-transparent lg:text-primary-700 dark:text-gray-400 dark:hover:text-slate-200 lg:border lg:border-gray-200 rounded"
-                      aria-current="page"
+                      className="block py-2 px-4 text-white bg-blue-600 hover:bg-blue-700 rounded lg:inline"
                     >
                       Sign In
                     </Link>
                   </li>
-                  <li className="block items-center sm:justify-center sm:flex">
+                  <li className="block">
                     <Link
                       to="/SignUp"
-                      className="block font-medium py-2 pr-4 pl-3 text-white hover:scale-105 bg-gradient-to-r from-primary-700 to-primary-800 lg:bg-transparent lg:text-primary-700 dark:text-gray-400 dark:hover:text-slate-200 lg:border lg:border-gray-200 rounded"
-                      aria-current="page"
+                      className="block py-2 px-4 text-white bg-green-600 hover:bg-green-700 rounded lg:inline"
                     >
                       Sign Up
                     </Link>
