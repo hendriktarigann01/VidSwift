@@ -18,6 +18,10 @@ const connectDb = async () => {
   }
 };
 
+app.get("/", (req, res) => {
+  res.json("Hello GES!");
+});
+
 // Middleware
 app.use(
   cors({
