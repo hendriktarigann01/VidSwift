@@ -27,7 +27,7 @@ app.options("*", cors());
 // Middleware
 app.use(
   cors({
-    origin: ["https://vidswift.vercel.app"],
+    origin: ["https://localhost:3000"],
     credentials: true,
   })
 );

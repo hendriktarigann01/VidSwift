@@ -38,7 +38,7 @@ const SignIn = ({ setLoading, setIsLoggedIn }) => {
     setTimeout(async () => {
       try {
         const response = await fetch(
-          "vidswift-api.vercel.app/api/auth/login",
+          "https://vidswift-api.vercel.app/api/auth/login",
           {
             method: "POST",
             headers: {

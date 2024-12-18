@@ -41,7 +41,7 @@ const SignUp = ({ setLoading }) => {
     setTimeout(async () => {
       try {
         const response = await fetch(
-          "vidswift-api.vercel.app/api/auth/register",
+          "https://vidswift-api.vercel.app/api/auth/register",
           {
             method: "POST",
             headers: {
