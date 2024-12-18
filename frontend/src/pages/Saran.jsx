@@ -21,7 +21,7 @@ const Saran = ({ setLoading }) => {
 
     try {
       const response = await fetch(
-        "https://vidswift-b5yy085si-hendriks-projects-80014419.vercel.app/api/saran",
+        "vidswift-api.vercel.app/api/saran",
         {
           method: "POST",
           body: formData,

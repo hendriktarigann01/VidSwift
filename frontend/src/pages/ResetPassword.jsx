@@ -39,7 +39,7 @@ const ResetPassword = ({ setLoading }) => {
     setTimeout(async () => {
       try {
         const response = await fetch(
-          "https://vidswift-b5yy085si-hendriks-projects-80014419.vercel.app/auth/resetPassword",
+          "vidswift-api.vercel.app/auth/resetPassword",
           {
             method: "POST",
             headers: {
