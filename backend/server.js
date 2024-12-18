@@ -18,34 +18,43 @@ const connectDb = async () => {
   }
 };
 
-app.get("/", (req, res) => {
-  res.json("Hello GES!");
-});
-
-app.options("*", cors());
-
-// Middleware
 app.use(
   cors({
-    origin: ["https://vidswift.vercel.app"],
-    credentials: true,
+    origin: ["https://vidswift.vercel.app", "http://localhost:3000"], // Tambahkan localhost untuk testing
+    credentials: true, 
   })
 );
+
+// Konfigurasi tambahan untuk preflight request
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://vidswift.vercel.app");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
+
 app.use(express.json());
 app.use(bodyParser.json());
+
 app.use(
   session({
     secret: "your-secret-key",
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: true },
+    cookie: { secure: process.env.NODE_ENV === "production" }, // Secure hanya jika production
   })
 );
 
+// Rute Utama
+app.get("/", (req, res) => {
+  res.json("Hello GES!");
+});
+
+// Rute App
 app.use("/api/auth", authRoutes);
 app.use("/api", saranRoutes);
 
-// Jalankan server
 app.listen(PORT, () => {
   console.log(`Server berjalan di port ${PORT}`);
   connectDb();
