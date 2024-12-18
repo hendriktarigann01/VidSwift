@@ -1,25 +1,15 @@
 {
   "version": 2,
-  "name": "VidSwift Web App",
   "builds": [
     {
-      "src": "*.js",
+      "src": "server.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/"
-    }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  },
-  "functions": [
-    {
-      "src": "*.js",
-      "use": "@vercel/node"
+      "dest": "/server.js"
     }
   ]
 }
